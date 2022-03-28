@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:news_app/model/artickel.dart';
 
 class DetailPage extends StatefulWidget {
-  final Article articel;
+  final Article article;
 
-  DetailPage({required this.articel});
+  DetailPage({required this.article});
 
   @override
   State<DetailPage> createState() => _DetailPageState();
