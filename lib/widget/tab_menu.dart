@@ -2,6 +2,7 @@ import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:news_app/model/artickel.dart';
 import 'package:news_app/service/data_service.dart';
+import 'package:news_app/widget/news_item.dart';
 
 class TabBarMenu extends StatefulWidget {
   final List<Article> article;
@@ -77,9 +78,38 @@ class _TabBarMenuState extends State<TabBarMenu>
             height: 10,
           ),
           Expanded(
-            child: TabBarView(children: children),
+            child: TabBarView(
+              children: myTabs.map((Tab tab) {
+                // disini kita menggunakan future builder karena
+                //kita bisa dengan mudah mendapatkan status dari proses
+                //yang sedang kita jalankan, misalnya seperti
+                //menampilkan loading saat memuat data
+                //dari server menggunakan API, lalu menampilkan datanya
+                //saat sudah siap dan di terima
+
+                return FutureBuilder(
+                    future: news.getNewsCategory(tab.text.toString()),
+                    builder: (context, snapshot) => snapshot.data != null
+                        ? _listNewsCategory(snapshot.data as List<Article>)
+                        : Center(
+                            child: CircularProgressIndicator(),
+                          ));
+              }).toList(),
+            ),
           )
         ],
+      ),
+    );
+  }
+
+  Widget _listNewsCategory(List<Article> articles) {
+    return Container(
+      height:
+          MediaQuery.of(context).size.height, //agar mengikuti ukuran tinggi hp
+      margin: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+      child: ListView.builder(
+        itemBuilder: (context, index) => NewsItem(article: articles[index]),
+        itemCount: articles.length,
       ),
     );
   }
