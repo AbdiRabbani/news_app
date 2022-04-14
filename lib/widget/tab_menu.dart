@@ -7,7 +7,7 @@ import 'package:news_app/widget/news_item.dart';
 class TabBarMenu extends StatefulWidget {
   final List<Article> article;
 
-  TabBarMenu({required this.article});
+  TabBarMenu(this.article);
 
   @override
   State<TabBarMenu> createState() => _TabBarMenuState();
@@ -23,7 +23,7 @@ class _TabBarMenuState extends State<TabBarMenu>
       text: 'Business',
     ),
     Tab(
-      text: 'Entertaiment',
+      text: 'Entertainment',
     ),
     Tab(
       text: 'General',
@@ -44,14 +44,12 @@ class _TabBarMenuState extends State<TabBarMenu>
   @override
   void initState() {
     _tabController = TabController(length: myTabs.length, vsync: this);
-    // TODO: implement initState
     super.initState();
   }
 
   @override
   void dispose() {
     _tabController.dispose();
-    // TODO: implement dispose
     super.dispose();
   }
 
@@ -79,6 +77,7 @@ class _TabBarMenuState extends State<TabBarMenu>
           ),
           Expanded(
             child: TabBarView(
+              controller: _tabController,
               children: myTabs.map((Tab tab) {
                 // disini kita menggunakan future builder karena
                 //kita bisa dengan mudah mendapatkan status dari proses

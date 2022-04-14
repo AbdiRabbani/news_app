@@ -105,5 +105,5 @@ class NewsItem extends StatelessWidget {
 }
 
 String timeUntil(DateTime parse) {
-  return timeago.format(parse, allowFromNow: true, locale: 'id');
+  return timeago.format(parse, allowFromNow: true, locale: 'en');
 }

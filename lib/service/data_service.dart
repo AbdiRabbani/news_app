@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:html';
 import 'package:http/http.dart' as http;
 import 'package:news_app/model/artickel.dart';
 
@@ -12,7 +11,7 @@ class News {
   Future<List<Article>?> getNews() async {
     List<Article>? list;
     String url =
-        '$baseUrl/top-headlines?country=us&category=business&apiKey=$apiKey';
+        '$baseUrl/top-headlines?country=id&category=business&apiKey=$apiKey';
     var response = await http.get(Uri.parse(url));
 
     if(response.statusCode == 200){
